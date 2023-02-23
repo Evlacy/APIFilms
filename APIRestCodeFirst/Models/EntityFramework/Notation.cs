@@ -4,30 +4,28 @@ using System.ComponentModel.DataAnnotations;
 namespace APIRestCodeFirst.Models.EntityFramework
 {
     [Table("t_j_notation_not")]
-    public class Notation
+    public partial class Notation
     {
         public Notation()
-        { }
+        {
+        }
 
-        [Key]
-        [Column("utl_id")]
+        [ForeignKey("fk_not_utl")]
+        [Column("utl_id", Order = 0)]
         public int UtilisateurId { get; set; }
 
-        [Key]
-        [Column("flm_id")]
-        [StringLength(100)]
+        [ForeignKey("fk_not_flm")]
+        [Column("flm_id", Order = 1)]
         public int FilmId { get; set; }
 
-        [Required]
         [Column("not_note")]
         [Range(0, 5)]
-        public int Note { get; set; }
+        public int? Note { get; set; } = null!;
 
-        [InverseProperty("UtilisateurNotant")]
-        public virtual ICollection<Utilisateur> UtilisateurNavigation { get; set; }
+        [InverseProperty("Notations")]
+        public virtual Film FilmNavigation { get; set; } = null!;
 
-        [InverseProperty("FilmNote")]
-        public virtual ICollection<Film> FilmNavigation { get; set; }
-
+        [InverseProperty("NotesUtilisateur")]
+        public virtual Utilisateur UtilisateurNavigation { get; set; } = null!;
     }
 }

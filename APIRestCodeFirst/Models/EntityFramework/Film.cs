@@ -5,34 +5,35 @@ using System.Runtime.Intrinsics.X86;
 namespace APIRestCodeFirst.Models.EntityFramework
 {
     [Table("t_e_film_flm")]
-    public class Film
+    public partial class Film
     {
         public Film()
-        { }
+        {
+        }
 
         [Key]
         [Column("flm_id")]
         public int FilmId { get; set; }
 
-        [Required]
         [Column("flm_titre")]
         [StringLength(100)]
-        public string Titre { get; set; }
+        public string Titre { get; set; } = null!;
 
         [Column("flm_resume")]
-        public string Resume { get; set; }
+        public string? Resume { get; set; }
 
         [Column("flm_datesortie")]
-        public DateTime DateSortie { get; set; }
+        public DateTime? DateSortie { get; set; }
 
         [Column("flm_duree")]
-        public Decimal Duree { get; set; }
+        [Range(3, 0)]
+        public Decimal? Duree { get; set; }
 
         [Column("flm_genre")]
-        [StringLength(50)]
-        public string Genre { get; set; }
+        [StringLength(30)]
+        public String? Genre { get; set; }
 
-        [InverseProperty("NotesFilm")]
-        public virtual ICollection<Notation> NotesNavigation { get; set; }
+        [InverseProperty(nameof(Notation.FilmNavigation))]
+        public virtual ICollection<Notation> Notations { get; set; } = new List<Notation>();
     }
 }
