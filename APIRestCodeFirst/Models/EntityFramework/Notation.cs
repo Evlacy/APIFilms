@@ -7,8 +7,7 @@ namespace APIRestCodeFirst.Models.EntityFramework
     public partial class Notation
     {
         public Notation()
-        {
-        }
+        { }
 
         [ForeignKey("fk_not_utl")]
         [Column("utl_id", Order = 0)]
@@ -19,7 +18,7 @@ namespace APIRestCodeFirst.Models.EntityFramework
         public int FilmId { get; set; }
 
         [Column("not_note")]
-        [Range(0, 5)]
+        [Range(0, 5)]       
         public int? Note { get; set; } = null!;
 
         [InverseProperty("Notations")]

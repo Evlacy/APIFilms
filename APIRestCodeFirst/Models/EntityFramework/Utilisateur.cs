@@ -8,8 +8,7 @@ namespace APIRestCodeFirst.Models.EntityFramework
     public partial class Utilisateur
     {
         public Utilisateur()
-        {
-        }
+        { }
 
         [Key]
         [Column("utl_id")]

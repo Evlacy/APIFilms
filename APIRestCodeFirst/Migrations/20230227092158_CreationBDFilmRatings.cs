@@ -62,6 +62,7 @@ namespace APIRestCodeFirst.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_t_j_notation_not", x => new { x.utl_id, x.flm_id });
+                    table.CheckConstraint("ck_not_note", "not_note between 0 and 5");
                     table.ForeignKey(
                         name: "FK_t_j_notation_not_t_e_film_flm_flm_id",
                         column: x => x.flm_id,
@@ -75,6 +76,12 @@ namespace APIRestCodeFirst.Migrations
                         principalColumn: "utl_id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "uq_utl_mail",
+                table: "t_e_utilisateur_utl",
+                column: "utl_mail",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_t_j_notation_not_flm_id",

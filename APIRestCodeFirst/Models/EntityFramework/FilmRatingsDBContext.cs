@@ -25,18 +25,29 @@ namespace APIRestCodeFirst.Models.EntityFramework
             {
                 optionsBuilder.UseLoggerFactory(MyLoggerFactory)
                                 .EnableSensitiveDataLogging()
-                                .UseNpgsql("Server=localhost;port=5432;Database=films;uid=postgres;password=postgres;");
+                                .UseNpgsql("Server=localhost;port=5432;Database=lesfilms;uid=postgres;password=postgres;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Notation>()
-                  .HasKey(m => new { m.UtilisateurId, m.FilmId });
             modelBuilder.Entity<Utilisateur>(entity => {
-                entity.Property(e => e.DateCreation).HasDefaultValueSql("now()");
-                entity.Property(e => e.Pays).HasDefaultValue("France");
+                entity
+                    .Property(e => e.DateCreation)
+                    .HasDefaultValueSql("now()");
+                entity
+                    .Property(e => e.Pays)
+                    .HasDefaultValue("France");
+                entity
+                    .HasIndex(e => e.Mail)
+                    .IsUnique()
+                    .HasDatabaseName("uq_utl_mail");
             });
+            modelBuilder.Entity<Notation>(entity => {
+                entity.HasCheckConstraint("ck_not_note", "not_note between 0 and 5");
+            });
+            modelBuilder.Entity<Notation>().HasKey(m => new { m.UtilisateurId, m.FilmId });
+
         }
     }
 }

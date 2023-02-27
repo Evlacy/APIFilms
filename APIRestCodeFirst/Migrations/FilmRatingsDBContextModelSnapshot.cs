@@ -80,6 +80,8 @@ namespace APIRestCodeFirst.Migrations
                     b.HasIndex("FilmId");
 
                     b.ToTable("t_j_notation_not");
+
+                    b.HasCheckConstraint("ck_not_note", "not_note between 0 and 5");
                 });
 
             modelBuilder.Entity("APIRestCodeFirst.Models.EntityFramework.Utilisateur", b =>
@@ -151,6 +153,10 @@ namespace APIRestCodeFirst.Migrations
                         .HasColumnName("utl_ville");
 
                     b.HasKey("UtilisateurId");
+
+                    b.HasIndex("Mail")
+                        .IsUnique()
+                        .HasDatabaseName("uq_utl_mail");
 
                     b.ToTable("t_e_utilisateur_utl");
                 });
