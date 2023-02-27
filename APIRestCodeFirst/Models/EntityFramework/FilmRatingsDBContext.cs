@@ -21,12 +21,13 @@ namespace APIRestCodeFirst.Models.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            /*
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseLoggerFactory(MyLoggerFactory)
                                 .EnableSensitiveDataLogging()
                                 .UseNpgsql("Server=localhost;port=5432;Database=lesfilms;uid=postgres;password=postgres;");
-            }
+            }*/
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

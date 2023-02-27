@@ -12,14 +12,14 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace APIRestCodeFirst.Migrations
 {
     [DbContext(typeof(FilmRatingsDBContext))]
-    [Migration("20230227092158_CreationBDFilmRatings")]
+    [Migration("20230227103406_CreationBDFilmRatings")]
     partial class CreationBDFilmRatings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.13")
+                .HasAnnotation("ProductVersion", "6.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

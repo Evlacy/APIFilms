@@ -28,10 +28,24 @@ namespace APIRestCodeFirst.Controllers
         }
 
         // GET: api/Utilisateurs/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Utilisateur>> GetUtilisateur(int id)
+        [HttpGet("GetUtilisateurById/{id}")]
+        public async Task<ActionResult<Utilisateur>> GetUtilisateurById(int id)
         {
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
+
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            return utilisateur;
+        }
+
+        // GET: api/Utilisateurs/dwride7@hexun.com
+        [HttpGet("GetUtilisateurByEmail/{email}")]
+        public async Task<ActionResult<Utilisateur>> GetUtilisateurByEmail(string email)
+        {
+            var utilisateur = await _context.Utilisateurs.Where(x => x.Mail.ToLower() == email.ToLower()).FirstAsync();
 
             if (utilisateur == null)
             {
@@ -80,7 +94,7 @@ namespace APIRestCodeFirst.Controllers
             _context.Utilisateurs.Add(utilisateur);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
+            return CreatedAtAction("GetUtilisateurById", new { id = utilisateur.UtilisateurId }, utilisateur);
         }
 
         // DELETE: api/Utilisateurs/5

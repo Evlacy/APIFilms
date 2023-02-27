@@ -23,10 +23,12 @@ namespace APIRestCodeFirst.Models.EntityFramework
         public String? Prenom { get; set; }
 
         [Column("utl_mobile", TypeName = "char(10)")]
+        [RegularExpression(@"^0[0-9]{9}$", ErrorMessage = "La longueur d’un téléphone doit être de 10, commancant par un 0 et n'ayant que des chiffres.")]
         public String? Mobile { get; set; }
 
         [Column("utl_mail")]
-        [StringLength(100)]
+        [EmailAddress]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "La longueur d’un email doit être comprise entre 6 et 100 caractères.")]
         public String? Mail { get; set; } = null!;
 
         [Column("utl_pwd")]
@@ -56,7 +58,7 @@ namespace APIRestCodeFirst.Models.EntityFramework
 
         [Required]
         [Column("utl_datecreation")]
-        public DateTime DateCreation { get; set; } = DateTime.Now;
+        public DateTime DateCreation { get; set; } = DateTime.UtcNow;
 
         [InverseProperty(nameof(Notation.UtilisateurNavigation))]
         public virtual ICollection<Notation> NotesUtilisateur { get; set; } = new List<Notation>();
