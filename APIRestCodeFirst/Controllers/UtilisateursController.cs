@@ -29,6 +29,8 @@ namespace APIRestCodeFirst.Controllers
 
         // GET: api/Utilisateurs/5
         [HttpGet("GetUtilisateurById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Utilisateur))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Utilisateur>> GetUtilisateurById(int id)
         {
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
@@ -43,6 +45,8 @@ namespace APIRestCodeFirst.Controllers
 
         // GET: api/Utilisateurs/dwride7@hexun.com
         [HttpGet("GetUtilisateurByEmail/{email}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Utilisateur))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Utilisateur>> GetUtilisateurByEmail(string email)
         {
             var utilisateur = await _context.Utilisateurs.Where(x => x.Mail.ToLower() == email.ToLower()).FirstAsync();
@@ -58,8 +62,16 @@ namespace APIRestCodeFirst.Controllers
         // PUT: api/Utilisateurs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutUtilisateur(int id, Utilisateur utilisateur)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != utilisateur.UtilisateurId)
             {
                 return BadRequest();
@@ -89,8 +101,15 @@ namespace APIRestCodeFirst.Controllers
         // POST: api/Utilisateurs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Utilisateurs.Add(utilisateur);
             await _context.SaveChangesAsync();
 
@@ -98,6 +117,8 @@ namespace APIRestCodeFirst.Controllers
         }
 
         // DELETE: api/Utilisateurs/5
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUtilisateur(int id)
         {

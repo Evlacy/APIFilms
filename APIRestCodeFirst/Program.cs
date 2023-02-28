@@ -10,7 +10,6 @@ namespace APIRestCodeFirst
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
 
             builder.Services.AddDbContext<FilmRatingsDBContext>(options =>
               options.UseNpgsql(builder.Configuration.GetConnectionString("FilmRatingsDBContext")));

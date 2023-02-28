@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace APIRestCodeFirst.Migrations
 {
     [DbContext(typeof(FilmRatingsDBContext))]
-    [Migration("20230227103406_CreationBDFilmRatings")]
+    [Migration("20230228081707_CreationBDFilmRatings")]
     partial class CreationBDFilmRatings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

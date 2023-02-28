@@ -4,7 +4,7 @@ using System.Data;
 
 namespace APIRestCodeFirst.Models.EntityFramework
 {
-    public class FilmRatingsDBContext : DbContext
+    public partial class FilmRatingsDBContext : DbContext
     {
         public FilmRatingsDBContext()
         {
@@ -49,6 +49,10 @@ namespace APIRestCodeFirst.Models.EntityFramework
             });
             modelBuilder.Entity<Notation>().HasKey(m => new { m.UtilisateurId, m.FilmId });
 
+            OnModelCreatingPartial(modelBuilder);
+
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
