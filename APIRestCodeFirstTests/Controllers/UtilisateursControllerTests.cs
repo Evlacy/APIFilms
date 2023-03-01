@@ -50,6 +50,16 @@ namespace APIRestCodeFirst.Controllers.Tests
             var utilisateur = context.Utilisateurs.Where(c => c.UtilisateurId == 1).FirstOrDefault();
             Assert.AreEqual(utilisateur, result.Value, "Utilisateurs non identiques");
         }
+        
+        /*
+        [TestMethod]
+        public void GetUtilisateurByEmailTest_Failed()
+        {
+            var result = Context.Utilisateurs.Where(x => x.Mail == "clilleymd@last.fm").FirstOrDefault();
+            var utilisateur = Controller.GetUtilisateurByMail("hams@last.fm").Result;
+
+            Assert.AreEqual(result.Value, utilisateur, "Utilisateurs identiques");
+        }*/
 
         [TestMethod()]
         public void GetUtilisateursByIdEmailAsync()
